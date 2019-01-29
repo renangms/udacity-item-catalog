@@ -192,12 +192,29 @@ def moviesJSON():
     movies = session.query(Movie).all()
     return jsonify(movies=[r.serialize for r in movies])
 
+@app.route('/movies/genre/JSON')
+def genresJSON():
+    genres = session.query(Genre).all()
+    return jsonify(movies=[r.serialize for r in genres])
+
 
 # Show all movies
 @app.route('/')
 @app.route('/movies/')
 def showMovies():
     movies = session.query(Movie).order_by(asc(Movie.title))
+    if 'username' not in login_session:
+        return render_template('public_movies.html', movies=movies)
+    else:
+        return render_template('movies.html', movies=movies)
+
+
+# Show movies from a genre
+@app.route('/')
+@app.route('/movies/genre/<string:genre_name>')
+def showMoviesByGenre(genre_name):
+    genre = session.query(Genre).filter_by(name=genre_name).one()
+    movies = session.query(Movie).filter_by(genre_id=genre.id).order_by(asc(Movie.title))
     if 'username' not in login_session:
         return render_template('public_movies.html', movies=movies)
     else:
