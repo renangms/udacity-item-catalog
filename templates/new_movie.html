@@ -1,37 +1,36 @@
 {% extends "main.html" %}
 {% block content %}
-{% include "header.html" %}
 <div class="mdl-grid mdl-shadow--2dp form-grid mdl-color--white margin-top-10">
-	<form action="{{url_for('newMovie')}}" class="item-form" method="post" id="movieForm">
-	  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text margin-top-5">
-		<input class="mdl-textfield__input" type="text" name="movieTitle" id="movietitle">
-		<label class="mdl-textfield__label" for="movieTitle">Movie Title</label>
-	  </div>
-	  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text">
-		<input class="mdl-textfield__input" type="text" name="moviePoster" id="movieposter">
-		<label class="mdl-textfield__label" for="moviePoster">Movie Poster Image url</label>
-	  </div>
-	  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text">
-		<textarea class="mdl-textfield__input" type="text"  name="movieStoryline" id="storyline"></textarea>
-		<label class="mdl-textfield__label" for="movieDescription">Storyline</label>
-	  </div>
-
-	  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth input-field-text">
-
-		<input class="mdl-textfield__input" type="text" name="category" id="category" value="" readonly tabIndex="-1">
-		<input type="hidden" value="" name="category">
-		<label for="category" class="mdl-textfield__label">Genre</label>
-		<ul for="category" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-			{% for g in genres %}
-			<li class="mdl-menu__item">{{g.name}}</li>
-			{% endfor %}
-		</ul>
+	<form action="{{url_for('newMovie')}}" class="item-form" method="post" id="movieform">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text margin-top-5">
+			<input class="mdl-textfield__input" type="text" name="title" id="title">
+			<label class="mdl-textfield__label" for="title">Movie Title</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text">
+			<input class="mdl-textfield__input" type="text" name="poster_image_url" id="poster_image_url">
+			<label class="mdl-textfield__label" for="poster_image_url">Movie Poster Image url</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text">
+			<textarea class="mdl-textfield__input" type="text" name="storyline" id="storyline"></textarea>
+			<label class="mdl-textfield__label" for="storyline">Storyline</label>
 		</div>
 
-	<br>
-	<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent input-button mdl-color--teal" type="button" onclick="validateDetails()" value="Create">
-	<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--grey-300 input-button" href="{{url_for('showMovies')}}">Cancel</a>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth input-field-text">
 
-  </form>
+			<input class="mdl-textfield__input" type="text" name="genre" id="genre" value="" readonly tabIndex="-1">
+			<label for="genre" class="mdl-textfield__label">Genre</label>
+			<ul for="genre" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+				{% for g in genres %}
+				<li class="mdl-menu__item">{{g.name}}</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<br>
+		<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent input-button mdl-color--teal"
+		 type="submit" value="Create">
+		<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--grey-300 input-button" href="{{url_for('showMovies')}}">Cancel</a>
+
+	</form>
 </div>
 {% endblock %}

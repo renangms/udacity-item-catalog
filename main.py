@@ -223,7 +223,11 @@ def newMovie():
     if request.method == 'POST':
         genreName = request.form['genre']
         genre = session.query(Genre).filter_by(name=genreName).one()
-        newMovie = Movie(title=request.form['title'], storyline=request.form['storyline'],
+        title = request.form['title']
+        storyline = request.form['storyline']
+        poster_image_url = request.form['poster_image_url']
+        # Add validation
+        newMovie = Movie(title=title, storyline=storyline, poster_image_url=poster_image_url,
                          genre_id=genre.id, user_id=login_session['user_id'])
         session.add(newMovie)
         flash('New Movie %s Successfully Created' % newMovie.title)
@@ -236,8 +240,7 @@ def newMovie():
 # Edit a movie
 @app.route('/movies/<int:movie_id>/edit/', methods=['GET', 'POST'])
 def editMovie(movie_id):
-    editedMovie = session.query(
-        Movie).filter_by(id=movie_id).one()
+    editedMovie = session.query(Movie).filter_by(id=movie_id).one()
     if 'username' not in login_session:
         return redirect('/login')
     if editedMovie.user_id != login_session['user_id']:
@@ -249,7 +252,8 @@ def editMovie(movie_id):
             return redirect(url_for('showMovies'))
     else:
         genres = session.query(Genre).all()
-        return render_template('edit_movie.html', movie=editedMovie, genres=genres)
+        genre = session.query(Genre).filter_by(id=editedMovie.genre_id).one()
+        return render_template('edit_movie.html', login_session=login_session, movie=editedMovie, genres=genres, genre_name=genre.name)
 
 
 # Delete a movie
