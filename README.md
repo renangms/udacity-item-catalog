@@ -29,5 +29,8 @@ $ vagrant ssh
 
 ## How to run
 ```
+$ cd /vagrant/udacity-item-catalog
 $ python main.py
 ```
+Access the application at [http://localhost:5000](http://localhost:5000).
+
