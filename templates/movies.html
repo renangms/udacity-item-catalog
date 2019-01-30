@@ -1,55 +1,21 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-	<div class="row top-menu">
-		<div class="col-md-10"></div>
-		<div class="col-md-2 text-right">
-					</div>
-	</div>
-	<div class="row divider blue">
-		<div class="col-md-12"></div>
-	</div>
-	<div class="row banner main">
-		<div class="col-md-1"></div>
-		<div class="col-md-11 padding-none">
-			<h1>Movies</h1>
-		</div>
-	</div>
-
-<div class = 'flash'>
-		      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-          
-        <ul>
-        {% for message in messages %}
-            <li> <strong> {{ message }} </strong> </li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-    {% endwith %}
-
-</div>
-	
-	<div class="row padding-top padding-bottom">
-		<div class="col-md-1"></div>
-		<div class="col-md-10 padding-none">
-			<a href="{{url_for('newMovie')}}">
-				<button class="btn btn-default" id="new-movie">
-					<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>Add Movie
-				</button>
-			</a>
-		</div>
-		<div class="col-md-1"></div>
-	</div>
+<div class="mdl-grid">
 	{% for movie in movies %}
-		<a href = "{{url_for('showMovie', movie_id = movie.id)}}">
-			<div class="row">
-				<div class="col-md-1"></div>
-					<div class="col-md-10 movie-list">
-						<h3>{{movie.title}}</h3>
-					</div>
-				<div class="col-md-1"></div>
-			</div>
-		</a>
+
+	<div class="demo-card-wide mdl-card mdl-shadow--8dp">
+
+		<div class="mdl-card__title brighten" title="{{movie.title}}" style="background: url('{{ movie.poster_image_url }}') center / cover;">
+			<a href="{{url_for('showMovie', movie_id = movie.id)}}"></a>
+		</div>
+
+		<div class="mdl-card__actions mdl-card--border">
+
+			<a href="{{url_for('showMovie', movie_id = movie.id)}}" title="{{ movie.title }}" tabindex="-1" class="link-fade">
+				<span>{{ movie.title }}</span><span class="span-fade"></span></a>
+		</div>
+	</div>
 	{% endfor %}
+</div>
 {% endblock %}

@@ -203,22 +203,17 @@ def genresJSON():
 @app.route('/movies/')
 def showMovies():
     movies = session.query(Movie).order_by(asc(Movie.title))
-    if 'username' not in login_session:
-        return render_template('public_movies.html', movies=movies)
-    else:
-        return render_template('movies.html', movies=movies)
+    genres = session.query(Genre).order_by(asc(Genre.name))
+    return render_template('movies.html', movies=movies, genres=genres, login_session=login_session)
 
 
 # Show movies from a genre
-@app.route('/')
 @app.route('/movies/genre/<string:genre_name>')
 def showMoviesByGenre(genre_name):
     genre = session.query(Genre).filter_by(name=genre_name).one()
     movies = session.query(Movie).filter_by(genre_id=genre.id).order_by(asc(Movie.title))
-    if 'username' not in login_session:
-        return render_template('public_movies.html', movies=movies)
-    else:
-        return render_template('movies.html', movies=movies)
+    genres = session.query(Genre).order_by(asc(Genre.name))
+    return render_template('movies.html', movies=movies, genres=genres, login_session=login_session)
 
 # Create a new movie
 @app.route('/movies/new/', methods=['GET', 'POST'])
@@ -236,7 +231,7 @@ def newMovie():
         return redirect(url_for('showMovies'))
     else:
         genres = session.query(Genre).all()
-        return render_template('new_movie.html', genres=genres)
+        return render_template('new_movie.html', login_session=login_session, genres=genres)
 
 # Edit a movie
 @app.route('/movies/<int:movie_id>/edit/', methods=['GET', 'POST'])
