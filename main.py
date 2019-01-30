@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, make_response, abort
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Movie, Genre, User
@@ -9,7 +9,6 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
 import json
-from flask import make_response
 import requests
 
 app = Flask(__name__)
@@ -230,7 +229,6 @@ def newMovie():
         newMovie = Movie(title=title, storyline=storyline, poster_image_url=poster_image_url,
                          genre_id=genre.id, user_id=login_session['user_id'])
         session.add(newMovie)
-        flash('New Movie %s Successfully Created' % newMovie.title)
         session.commit()
         return redirect(url_for('showMovies'))
     else:
@@ -240,15 +238,18 @@ def newMovie():
 # Edit a movie
 @app.route('/movies/<int:movie_id>/edit/', methods=['GET', 'POST'])
 def editMovie(movie_id):
-    editedMovie = session.query(Movie).filter_by(id=movie_id).one()
+    editedMovie = session.query(Movie).filter_by(id=movie_id).one_or_none()
+    if editedMovie is None:
+        abort(404)
     if 'username' not in login_session:
+        #abort(401)
         return redirect('/login')
     if editedMovie.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to edit this movie. Please create your own movie in order to edit.');}</script><body onload='myFunction()''>"
+        abort(403)
+        #return "<script>function myFunction() {alert('You are not authorized to edit this movie. Please create your own movie in order to edit.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         if request.form['title']:
             editedMovie.title = request.form['title']
-            flash('Movie Successfully Edited %s' % editedMovie.title)
             return redirect(url_for('showMovies'))
     else:
         genres = session.query(Genre).all()
@@ -263,24 +264,22 @@ def deleteMovie(movie_id):
     if 'username' not in login_session:
         return redirect('/login')
     if movieToDelete.user_id != login_session['user_id']:
-        return "<script>function myFunction() {alert('You are not authorized to delete this movie. Please create your own movie in order to delete.');}</script><body onload='myFunction()''>"
+        abort(403)
+        #return "<script>function myFunction() {alert('You are not authorized to delete this movie. Please create your own movie in order to delete.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         session.delete(movieToDelete)
-        flash('%s Successfully Deleted' % movieToDelete.title)
         session.commit()
         return redirect(url_for('showMovies', movie_id=movie_id))
     else:
-        return render_template('delete_movie.html', movie=movieToDelete)
+        return render_template('delete_movie.html', login_session=login_session, movie=movieToDelete)
 
 # Show a movie info
 @app.route('/movies/<int:movie_id>/')
 def showMovie(movie_id):
     movie = session.query(Movie).filter_by(id=movie_id).one()
     creator = getUserInfo(movie.user_id)
-    if 'username' not in login_session or creator.id != login_session['user_id']:
-        return render_template('public_movie.html', movie=movie, creator=creator)
-    else:
-        return render_template('movie.html', movie=movie, creator=creator)
+    #if 'username' not in login_session or creator.id != login_session['user_id']:
+    return render_template('movie.html', login_session=login_session, movie=movie, creator=creator)
 
 
 if __name__ == '__main__':

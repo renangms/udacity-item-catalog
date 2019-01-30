@@ -1,17 +1,27 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-<h2> Are you sure you want to delete {{movie.title}}? </h2>
+<div class="mdl-card auto-margin mdl-textfield--full-width form-grid mdl-shadow--3dp margin-bottom-10 mdl-color--white margin-top-10">
+	<div class="mdl-grid margin-0 mdl-textfield--full-width justify-start padding-0">
+		<div class=" mdl-cell--3-col mdl-cell--1-offset-desktop mdl-cell--6-col-phone mdl-cell--8-col-tablet  mdl-typography--text-center">
+			<img src="{{movie.poster_image_url}}" alt="Cover art" class="movie-img-detail" />
+		</div>
+		<div class=" mdl-cell--7-col mdl-cell--8-col-phone auto-margin movie-header">
+			<h1 class="movie-title">{{movie.title}}</h1>
 
-<form action="#" method = 'post'>
-
-	<button type="submit" class="btn btn-default delete" id="submit" type="submit">
-	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</button>
-	<a href = '{{url_for('showMovies')}}'>
-		<button class="btn btn-default delete">
-		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Cancel</button>
-	</a>
-
-</form>
+			<div class="movie-storyline">
+				{{movie.storyline|safe}}
+			</div>
+			<div class="action-button">
+				<h5> Are you sure you want to delete {{movie.title}}? </h5>
+				<form action="{{url_for('deleteMovie', movie_id = movie.id)}}" class="item-form" method="post" id="deleteform">
+					<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent input-button mdl-color--teal"
+					 type="submit" value="Yes">
+					<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--grey-300 input-button" href="{{url_for('showMovies')}}">Cancel</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

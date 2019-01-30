@@ -128,26 +128,11 @@ h1 {
     outline: rgb(33, 33, 33) none 0px;
 }
 
-.author-book {
-    color: rgb(97, 97, 97);
-    display: inline-block;
-    height: 16px;
-    max-width: 132px;
-    text-align: left;
-    text-decoration: none;
-    text-rendering: optimizeLegibility;
-    white-space: nowrap;
-    width: 132px;
-    font: normal normal 300 normal 13px / 16px Roboto, UILanguageFont, Arial, sans-serif;
-    margin: 1vh 0px;
-    overflow: hidden;
-}
-
 .page-title {
   text-decoration: none !important;
 }
 
-.no-book-msg {
+.no-movie-msg {
     margin-top: 40vh;
     line-height: 1.2;
     font-size: 24px;
@@ -172,27 +157,27 @@ h1 {
     margin: 0;
 }
 
-.book-img-detail {
+.movie-img-detail {
     box-shadow: rgb(141, 141, 141) 0px 0px 4px 0px;
     height: 200.663px;
     margin-top: 3vh;
     margin-bottom: 3vh;
 }
 
-.book-header {
+.movie-header {
     box-sizing: border-box;
     vertical-align: top;
     font: normal normal 300 normal 13px / 18.2px Roboto, UILanguageFont, Arial, sans-serif;
 }
 
-.book-title {
+.movie-title {
     text-align: left;
     font: normal normal 300 normal 24px / 26px Roboto, UILanguageFont, Arial, sans-serif;
     margin: 10px 0 10px 10px;
     outline: rgb(33, 33, 33) none 0px;
 }
 
-.author-book-detail {
+.author-movie-detail {
     text-align: left;
     text-rendering: optimizeLegibility;
     text-decoration: none;
@@ -227,7 +212,7 @@ h1 {
     border-top: 2px solid #CCC;
 }
 
-.book-description {
+.movie-storyline {
     background: #fff;
     padding: 0 50px 0 50px;
     box-sizing: border-box;
@@ -238,7 +223,7 @@ h1 {
     line-height: 24px;
 }
 
-.description-content {
+.storyline-content {
     max-width: 1020px;
     margin: 5vh auto 10vh auto;
 }
@@ -268,13 +253,13 @@ p {
     .action-button {
         margin-top: 5vh;
     }
-    .book-description {
+    .movie-storyline {
         padding: 0 30px 0 30px;
     }
-    .description-content {
+    .storyline-content {
         margin-bottom: 5vh;
     }
-    .no-book-msg{
+    .no-movie-msg{
         margin-top: 30vh;
     }
     .item-form{
