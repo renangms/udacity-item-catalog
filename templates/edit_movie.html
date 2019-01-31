@@ -1,46 +1,37 @@
 {% extends "main.html" %}
 {% block content %}
-{% include "header.html" %}
-<div class="row divider green">
-    <div class="col-md-12"></div>
-</div>
-<div class="row banner menu">
-    <div class="col-md-11 col-md-offset-1 padding-none">
-        <h1>Edit {{movie.title}}</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6 col-md-offset-1 padding-top">
-        <form action="{{ url_for('editMovie',movie_id = movie.id)}}" method="post">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" name="name" value="{{ movie.title }}">
+<div class="mdl-grid mdl-shadow--2dp form-grid mdl-color--white margin-top-10">
+	<form action="{{url_for('editMovie', movie_id = movie.id)}}" class="item-form" method="post" id="editform">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text margin-top-5">
+			<input class="mdl-textfield__input" type="text" name="title" id="title" value="{{movie.title}}">
+			<label class="mdl-textfield__label" for="title">Movie Title</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text">
+			<input class="mdl-textfield__input" type="text" name="poster_image_url" id="poster_image_url" value="{{movie.poster_image_url}}">
+			<label class="mdl-textfield__label" for="poster_image_url">Movie Poster Image url</label>
+		</div>
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-field-text">
+			<textarea class="mdl-textfield__input" type="text" name="storyline" id="storyline">{{movie.storyline}}</textarea>
+			<label class="mdl-textfield__label" for="storyline">Storyline</label>
+		</div>
 
-                <label for="storyline">Storyline:</label>
-                <input type="text" class="form-control" name="storyline" value="{{ movie.storyline }}">
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth input-field-text">
 
-                <label for="poster_image_url">Poster URL:</label>
-				<input type="text" class="form-control" name="poster_image_url" value="{{ movie.poster_image_url }}"> 
+			<input class="mdl-textfield__input" type="text" name="genre" id="genre" value="{{genre_name}}" readonly tabIndex="-1">
+			<input type="hidden" value="" name="genre">
+			<label for="genre" class="mdl-textfield__label">Genre</label>
+			<ul for="genre" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+				{% for g in genres %}
+				<li class="mdl-menu__item">{{g.name}}</li>
+				{% endfor %}
+			</ul>
+		</div>
 
-				<label for="trailer_youtube_url">Poster URL:</label>
-				<input type="text" class="form-control" name="trailer_youtube_url" value="{{ movie.trailer_youtube_url }}">
+		<br>
+		<input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent input-button mdl-color--indigo"
+		 type="submit" value="Edit">
+		<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--grey-300 input-button" href="{{url_for('showMovies')}}">Cancel</a>
 
-                <label for="genre">Genre:</label>
-				<select name="genre">
-					{% for g in genres %}
-					<option value="{{ g.name }}">{{ g.name }}</option>
-					{% endfor %}
-				</select>
-
-                <div class="padding-bottom"></div>
-                <button type="submit" class="btn btn-default" id="submit" type="submit">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Save</button>
-                <a href='{{url_for('showMovies')}}'>
-                    <button class="btn btn-default delete">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</button>
-                </a>
-            </div>
-        </form>
-    </div>
+	</form>
 </div>
 {% endblock %}
