@@ -28,8 +28,18 @@ $ vagrant ssh
 ```
 
 ## How to run
+
+#### Create Demo Database
+
 ```
 $ cd /vagrant/udacity-item-catalog
+$ python movies.py
+```
+
+#### Start Application
+
+```
 $ python main.py
 ```
+
 Access the application at [http://localhost:5000](http://localhost:5000).
