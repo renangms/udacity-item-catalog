@@ -248,9 +248,17 @@ def editMovie(movie_id):
         abort(403)
         #return "<script>function myFunction() {alert('You are not authorized to edit this movie. Please create your own movie in order to edit.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
-        if request.form['title']:
-            editedMovie.title = request.form['title']
-            return redirect(url_for('showMovies'))
+        genreName = request.form['genre']
+        genre = session.query(Genre).filter_by(name=genreName).one()
+        title = request.form['title']
+        storyline = request.form['storyline']
+        poster_image_url = request.form['poster_image_url']
+        # Add validation
+        editedMovie.title = title
+        editedMovie.storyline =storyline
+        editedMovie.poster_image_url = poster_image_url
+        editedMovie.genre_id = genre.id
+        return redirect(url_for('showMovies'))
     else:
         genres = session.query(Genre).all()
         genre = session.query(Genre).filter_by(id=editedMovie.genre_id).one()

@@ -17,7 +17,8 @@
 
 		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth input-field-text">
 
-			<input class="mdl-textfield__input" type="text" name="genre" id="genre" value="genre_name" readonly tabIndex="-1">
+			<input class="mdl-textfield__input" type="text" name="genre" id="genre" value="{{genre_name}}" readonly tabIndex="-1">
+			<input type="hidden" value="" name="genre">
 			<label for="genre" class="mdl-textfield__label">Genre</label>
 			<ul for="genre" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
 				{% for g in genres %}

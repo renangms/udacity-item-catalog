@@ -1,9 +1,12 @@
+{% extends "main.html" %}
+{% block header %}
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 	<header class="mdl-layout__header header-color">
 		<div class="mdl-layout__header-row">
 
 			<!-- Title -->
-			<a href="{{url_for('showMovies')}}" class="mdl-color-text--white page-title"><span class="mdl-layout-title">Movies</span></a>
+			<a href="{{url_for('showMovies')}}" class="mdl-color-text--white page-title"><span class="mdl-layout-title">Movies
+					Catalog</span></a>
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
 			<!-- Navigation. We hide it in small screens. -->
@@ -59,3 +62,4 @@
 		</div>
 	</main>
 </div>
+{% endblock %}
