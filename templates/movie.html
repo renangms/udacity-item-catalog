@@ -8,14 +8,16 @@
         <div class=" mdl-cell--7-col mdl-cell--8-col-phone auto-margin movie-header">
             <h1 class="movie-title">{{movie.title}}</h1>
             <div class="movie-storyline">
-					{{movie.storyline|safe}}
+                {{movie.storyline|safe}}
             </div>
-			{% if login_session['username'] and creator.id == login_session['user_id'] %}
+            {% if login_session['username'] and creator.id == login_session['user_id'] %}
             <div class="action-button">
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--white mdl-color-text--indigo button-edit" onclick="location.href='{{url_for('editMovie', movie_id = movie.id)}}'">Edit</button>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--indigo mdl-color-text--white button-delete" onclick="location.href='{{url_for('deleteMovie', movie_id = movie.id)}}'">Delete</button>
-			</div>
-			{% endif %}
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--white mdl-color-text--indigo button-edit"
+                    onclick="location.href='{{url_for('editMovie', movie_id = movie.id)}}'">Edit</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--indigo mdl-color-text--white button-delete"
+                    onclick="location.href='{{url_for('deleteMovie', movie_id = movie.id)}}'">Delete</button>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
