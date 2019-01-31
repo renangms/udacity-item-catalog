@@ -37,9 +37,6 @@
 					{% for g in genres %}
 					<a class="mdl-navigation__link" href="{{url_for('showMoviesByGenre', genre_name=g.name)}}">{{g.name}}</a>
 					{% endfor %}
-					<!-- Colored raised button -->
-					<!-- <button id="googleSignInCustom" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--white login-button-color signInButton">Login</button>
-						<button id="logout_button1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect mdl-color--white login-button-color">Logout</button> -->
 				</nav>
 			</div>
 		</header>
@@ -68,22 +65,13 @@
 		</div>
 		<main class="mdl-layout__content">
 			<div class="page-content">
-
 				<!--all content will go here-->
 				{% block content %}
 				{% endblock %}
-				{% if login_session['username'] %}
-				<!-- Colored FAB button with ripple -->
-				<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored add-button add-button-color"
-				 id="add-button" onclick="location.href='{{url_for('newMovie')}}'">
-					<i class="material-icons">add</i>
-				</button>
-				<div class="mdl-tooltip" data-mdl-for="add-button"><strong>Add Movie</strong></div>
-				{% endif %}
-
 			</div>
 		</main>
 	</div>
+	<script src="{{ url_for('static',filename = 'js/app.js') }}"></script>
 </body>
 
 </html>
